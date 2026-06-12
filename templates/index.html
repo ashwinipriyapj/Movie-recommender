@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Recommender</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; background: #f9f9f9; }
+    h1 { color: #e50914; }
+    select { width: 100%; padding: 10px; font-size: 16px; margin: 10px 0; }
+    button { background: #e50914; color: white; border: none; padding: 12px 24px; font-size: 16px; cursor: pointer; border-radius: 6px; }
+    button:hover { background: #c40812; }
+    .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 14px 18px; margin: 10px 0; font-size: 16px; }
+    h2 { margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <h1>Movie Recommender</h1>
+  <form action="/recommend" method="POST">
+    <label>Select a movie:</label>
+    <select name="movie">
+      {% for movie in movies %}
+        <option value="{{ movie }}" {% if selected == movie %}selected{% endif %}>{{ movie }}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <button type="submit">Get Recommendations</button>
+  </form>
+
+  {% if recommendations %}
+    <h2>Because you liked "{{ selected }}":</h2>
+    {% for movie in recommendations %}
+      <div class="card">{{ movie }}</div>
+    {% endfor %}
+  {% endif %}
+</body>
+</html>
